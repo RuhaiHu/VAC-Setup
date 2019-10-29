@@ -18,8 +18,8 @@ Import-Module AudioDeviceCmdlets
 .EXAMPLE
   <Example goes here. Repeat this attribute for more than one example
     
-  powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -windowstyle hidden -File "D:\Dropbox\Twitch\VAC Setup\login.ps1"
-  powershell.exe -ExecutionPolicy Bypass -File "D:\Dropbox\Twitch\VAC Setup\login.ps1"
+  powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -windowstyle hidden -File "D:\DB\Twitch\VAC Setup\login.ps1"
+  powershell.exe -ExecutionPolicy Bypass -File "D:\DB\Twitch\VAC Setup\login.ps1"
   pointless update
   >
 #>
@@ -31,7 +31,7 @@ Get-Process -Name "audiorepeater" | Stop-Process
 Start-Sleep -s 1
 
 $command = @'
-cmd.exe /C "D:\Dropbox\Twitch\VAC Setup\login.bat"
+cmd.exe /C "D:\DB\Twitch\VAC Setup\login.bat"
 '@
 
 Invoke-Expression -Command:$command
