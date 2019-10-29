@@ -1,0 +1,2 @@
+REM Starts Takes Line 2 audio and repeats to Line 3 for OBS stream
+start /min "AudioRepeater 4" "%programfiles%\Virtual Audio Cable\audiorepeater_ks.exe" /WindowName:"AudioRepeater 4" /Input: "Virtual Cable 2" /Output: "Virtual Cable 3" /BufferMs:100 /SamplingRate:48000 /Priority:High /Autostart
