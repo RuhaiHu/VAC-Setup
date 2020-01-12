@@ -44,11 +44,15 @@ Start-Sleep -s 1
 # @ECHO OFF
 # start /min "AudioRepeater 1" "C:\\Program Files\\Virtual Audio Cable\\Virtual Audio Cable\\audiorepeater.exe" /WindowName:"Desktop - L1 to Built In" /Input: "Line 1 (Virtual Audio Cable)" /Output: "Speakers (Realtek High Definiti" /BufferMs:150 /Buffers:16 /SamplingRate:48000 /Priority:High /Autostart
 
-Start-Process -FilePath 'cmd.exe' -ArgumentList '/C "D:\DB\Twitch\\VAC Setup\\L1_to_BuiltIn.bat"' -Verb runAs
+# Start-Process -FilePath 'cmd.exe' -ArgumentList '/C "D:\DB\Twitch\\VAC Setup\\L1_to_BuiltIn.bat"' -Verb runAs
 
 # Start-Process -FilePath 'cmd.exe' -ArgumentList '/C "start /min "AudioRepeater 1" "%programfiles%\Virtual Audio Cable\audiorepeater.exe" /WindowName:"VMeterOutMic - audio device" /Input: "VoiceMeeter output (VB-Audio Vo" /Output: "Speakers (USB Audio Device)" /BufferMs:150 /Buffers:16 /SamplingRate:48000 /Priority:High /Autostart"' -Verb runAs
 
-# Start-Process -FilePath 'cmd.exe' -ArgumentList '/C "start /min "AudioRepeater 1" "%programfiles%\Virtual Audio Cable\audiorepeater.exe" /WindowName:"GoXLR to Console" /Input: "Chat Mic (TC-Helicon GoXLR)" /Output: "Speakers (USB Audio Device)" /BufferMs:150 /Buffers:16 /SamplingRate:48000 /Priority:High /Autostart"' -Verb runAs
+Start-Process -FilePath 'cmd.exe' -ArgumentList '/C "start /min "AudioRepeater 1" "%programfiles%\Virtual Audio Cable\audiorepeater.exe" /WindowName:"L1 to Built In" /Input: "Line 1 (Virtual Audio Cable)" /Output: "Speakers (Realtek High Definiti" /BufferMs:150 /Buffers:16 /SamplingRate:48000 /Priority:High /Autostart"' -Verb runAs
+
+Start-Process -FilePath 'cmd.exe' -ArgumentList '/C "start /min "AudioRepeater 2" "%programfiles%\Virtual Audio Cable\audiorepeater.exe" /WindowName:"GoXLR to Console" /Input: "Chat Mic (TC-Helicon GoXLR)" /Output: "Speakers (USB Audio Device)" /BufferMs:150 /Buffers:16 /SamplingRate:48000 /Priority:High /Autostart"' -Verb runAs
+
+Start-Process -FilePath 'cmd.exe' -ArgumentList '/C "start /min "AudioRepeater 3" "%programfiles%\Virtual Audio Cable\audiorepeater.exe" /WindowName:"L1 to GoXLR Music" /Input: "Line 1 (Virtual Audio Cable)" /Output: "Music (TC-Helicon GoXLR)" /BufferMs:150 /Buffers:16 /SamplingRate:48000 /Priority:High /Autostart"' -Verb runAs
 
 # Read-Host "wait to continue... press key"
 

@@ -1,0 +1,2 @@
+@ECHO on
+start /min "AudioRepeater 1" "%programfiles%\Virtual Audio Cable\audiorepeater.exe" /WindowName:"VMeterOutMic - audio device" /Input: "VoiceMeeter output (VB-Audio Vo" /Output: "Speakers (USB Audio Device)" /BufferMs:150 /Buffers:16 /SamplingRate:48000 /Priority:High /Autostart
