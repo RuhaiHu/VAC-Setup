@@ -3,7 +3,7 @@
 Import-Module AudioDeviceCmdlets
 <#
 .SYNOPSIS
-  Restart audio services and current virtual cables, and more?
+  Restart audio services and current virtual cables, and more? For Streaming
 .DESCRIPTION
 
 .INPUTS
@@ -13,7 +13,7 @@ Import-Module AudioDeviceCmdlets
 .NOTES
   Version:        1.0
   Author:         Michael Weber
-  Creation Date:  2019.10.09
+  Creation Date:  2020.01.11
   Purpose/Change: Initial script development
   
 .EXAMPLE
