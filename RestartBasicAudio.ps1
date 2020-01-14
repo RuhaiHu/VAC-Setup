@@ -30,7 +30,7 @@ Get-Process -Name "audiorepeater" | Stop-Process
 # doing the next 2 lines breaks stream deck just the Audio Service should be fine
 # Stop-Service -Name 'Audiosrv'
 # Restart-Service -Name 'AudioEndpointBuilder'
-Restart-Service -Name 'Audiosrv'
+# Restart-Service -Name 'Audiosrv'
 
 #Wait for a bit
 Start-Sleep -s 1
