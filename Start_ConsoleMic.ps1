@@ -36,6 +36,8 @@
 
 Start-Process -FilePath 'cmd.exe' -ArgumentList '/C "start /min "AudioRepeater 1" "%programfiles%\Virtual Audio Cable\audiorepeater.exe" /WindowName:"GoXLR to Console" /Input: "Chat Mic (TC-Helicon GoXLR)" /Output: "Speakers (USB Audio Device)" /BufferMs:150 /Buffers:16 /SamplingRate:48000 /Priority:High /Autostart"' -Verb runAs
 
+Start-Process -FilePath 'cmd.exe' -ArgumentList '/C "start /min "AudioRepeater 1" "%programfiles%\Virtual Audio Cable\audiorepeater.exe" /WindowName:"GoXLR to Console" /Input: "Chat Mic (TC-Helicon GoXLR)" /Output: "Speakers (USB Audio Device)" /BufferMs:150 /Buffers:16 /SamplingRate:48000 /Priority:High /Autostart"' -Verb runAs
+
 # Start-Process -FilePath 'cmd.exe' -ArgumentList '/C "%programfiles%\Virtual Audio Cable\audiorepeater.exe" /CloseInstance:"VMeterOutMic - Xonar Stereo"' -Verb runAs
 
 # Read-Host "wait to continue... press key"
