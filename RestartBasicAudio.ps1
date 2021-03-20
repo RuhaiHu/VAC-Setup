@@ -11,9 +11,10 @@ Import-Module AudioDeviceCmdlets
 .OUTPUTS
   <Outputs if any, otherwise state None - example: Log file stored in C:\Windows\Temp\<name>.log>
 .NOTES
-  Version:        1.0
+  Version:        2.0
   Author:         Michael Weber
   Creation Date:  2019.10.09
+  Last Modified Date: 2021.03.19
   Purpose/Change: Initial script development
   
 .EXAMPLE
@@ -24,40 +25,31 @@ Import-Module AudioDeviceCmdlets
   >
 #>
 
+# Variables
+$ProgFiles = $ENV:ProgramFiles
+$AudioRepeater = $ProgFiles + "\Virtual Audio Cable\audiorepeater.exe"
+$configAudioL1ToGoXLRMusic = "
+  /WindowName: ""L1 to GoXLR Music"" 
+  /Input:""Line 1 (Virtual Audio Cable)"" 
+  /Output:""Music (TC-Helicon GoXLR)"" 
+  /SamplingRate:48000 
+  /BitsPerSample:16 
+  /Channels:2 
+  /BufferMs:150 
+  /BufferParts:16 
+  /Prefill:50 
+  /ResyncAt:20 
+  /Priority:High 
+  /ChanCfg:""Stereo"" 
+  /AutoStart"
+# $configAudio = "/CloseInstance: ""L1 to GoXLR Music"""
+
+
 # kill any stray audio repeaters
-Get-Process -Name "audiorepeater*" | Stop-Process
+Get-Process -Name "audiorepeater*" | Stop-Process -Force
 
-# doing the next 2 lines breaks stream deck just the Audio Service should be fine
-# Stop-Service -Name 'Audiosrv'
-# Restart-Service -Name 'AudioEndpointBuilder'
-# Restart-Service -Name 'Audiosrv'
+# #Wait for a bit
+Start-Sleep -m 250
 
-#Wait for a bit
-Start-Sleep -s 1
-
-# launch current list of VAC cable repeaters
-# $firstVACRepeater = @'
-# cmd.exe /C "D:\GD\Twitch\VAC Setup\L1_to_BuiltIn.bat"
-# '@
-# Invoke-Expression -Command:$firstVACRepeater
-
-# @ECHO OFF
-# start /min "AudioRepeater 1" "C:\\Program Files\\Virtual Audio Cable\\Virtual Audio Cable\\audiorepeater.exe" /WindowName:"Desktop - L1 to Built In" /Input: "Line 1 (Virtual Audio Cable)" /Output: "Speakers (Realtek High Definiti" /BufferMs:150 /Buffers:16 /SamplingRate:48000 /Priority:High /Autostart
-
-# Start-Process -FilePath 'cmd.exe' -ArgumentList '/C "D:\DB\Twitch\\VAC Setup\\L1_to_BuiltIn.bat"' -Verb runAs
-
-# Start-Process -FilePath 'cmd.exe' -ArgumentList '/C "D:\DB\Twitch\\VAC Setup\\L1_to_GoXLRMusic.bat"' -Verb runAs
-
-Start-Process -FilePath 'cmd.exe' -ArgumentList '/C "start /min "AudioRepeater 1" "%programfiles%\Virtual Audio Cable\audiorepeater.exe" /WindowName:"L1 to GoXLR Music" /Input: "Line 1 (Virtual Audio Cable)" /Output: "Music (TC-Helicon GoXLR)" /BufferMs:150 /Buffers:16 /SamplingRate:48000 /Priority:High /Autostart"' -Verb runAs
-
-# Start-Process -FilePath 'cmd.exe' -ArgumentList '/C "start /min "AudioRepeater 1" "%programfiles%\Virtual Audio Cable\audiorepeater.exe" /WindowName:"VMeterOutMic - audio device" /Input: "VoiceMeeter output (VB-Audio Vo" /Output: "Speakers (USB Audio Device)" /BufferMs:150 /Buffers:16 /SamplingRate:48000 /Priority:High /Autostart"' -Verb runAs
-
-# Start-Process -FilePath 'cmd.exe' -ArgumentList '/C "start /min "AudioRepeater 1" "%programfiles%\Virtual Audio Cable\audiorepeater.exe" /WindowName:"GoXLR to Console" /Input: "Chat Mic (TC-Helicon GoXLR)" /Output: "Speakers (USB Audio Device)" /BufferMs:150 /Buffers:16 /SamplingRate:48000 /Priority:High /Autostart"' -Verb runAs
-
-# Read-Host "wait to continue... press key"
-
-# Set to VAC Line 1
-# down side to using this to set it it sets everything including the voip defaults so be warned 
-# though might not matter if your setting things manually in apps
-# $vac1 = Get-AudioDevice -List | Where-Object -Property Name -eq "Line 1 (Virtual Audio Cable)" | Where-Object -Property Type -eq 'Playback'
-# Set-AudioDevice -ID $vac1.ID
+# Launch Audio Repeater
+Start-Process -FilePath $AudioRepeater -ArgumentList $configAudioL1ToGoXLRMusic -WindowStyle Hidden -Verb runAs
