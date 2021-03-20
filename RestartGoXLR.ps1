@@ -37,6 +37,9 @@ Get-Process -Name $processesToRestart | Stop-Process -Force
 Write-Output "Restarting GoXLR Apps"
 Start-Process -FilePath $GoXLRAudioCplApp -WindowStyle Hidden
 Start-Sleep -s 2
-Start-Process -FilePath $GoXLRAPP -WindowStyle Minimized 
+# Start-Process -FilePath $GoXLRAPP -WindowStyle Minimized 
+# Don't make a difference still tied to the powershell instance. app closes when shell closes
+# .$GoXLRAPP
+# & $GoXLRAPP
 # Start-Process -FilePath $GoXLRAPP -WorkingDirectory $GoXLRAPPWorkDir -WindowStyle Minimized 
 Write-Output "End of GoXLR Restart"
