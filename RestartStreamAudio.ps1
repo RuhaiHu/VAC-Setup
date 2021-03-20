@@ -1,6 +1,5 @@
 #Requires -version 5.1
 #Requires -RunAsAdministrator
-Import-Module AudioDeviceCmdlets
 <#
 .SYNOPSIS
   Restart audio services and current virtual cables, and more? For Streaming
@@ -92,3 +91,4 @@ Start-Process -FilePath $AudioRepeaterKS -ArgumentList $configAudioGoXLRChatMicT
 
 # Launch Audio Repeater KS for GoXLR Mic to Console USB Audio feed for voice chat
 Start-Process -FilePath $AudioRepeaterKS -ArgumentList $configAudioGoXLRChatMicToL2 -WindowStyle Hidden -Verb runAs
+Write-Output "End of Stream Audio restart."

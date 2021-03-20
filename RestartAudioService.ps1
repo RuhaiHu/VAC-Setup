@@ -1,5 +1,5 @@
 #Requires -version 5.1
-Import-Module AudioDeviceCmdlets
+#Requires -RunAsAdministrator
 <#
 .SYNOPSIS
   Restart audio service
@@ -24,32 +24,50 @@ Import-Module AudioDeviceCmdlets
   >
 #>
 
-# Write-Warning "Unplug GOXLR.... ok?"
-# Read-Host "Press key to continue"
 
-# # Kill the GoXlR application
-# Get-Process -Name "GoXLR App" | Stop-Process
+# Variables
+$scriptDirectory = "D:\GD\Twitch\VAC Setup\"
+
+# $basicAudio = "$PSScriptRoot\RestartBasicAudio.ps1"
+# $streamAudio = "$PSScriptRoot\RestartStreamAudio.ps1"
+# $goXLR = "$PSScriptRoot\RestartGoXLR.ps1"
+
+$basicAudio = "RestartBasicAudio.ps1"
+$streamAudio = "RestartStreamAudio.ps1"
+$goXLR = "RestartGoXLR.ps1"
+
 
 # doing the next 2 lines breaks stream deck just the Audio Service should be fine
-# Stop-Service -Name 'Audiosrv'
-# Restart-Service -Name 'AudioEndpointBuilder'
-# Restart-Service -Name 'Audiosrv'
-Start-Process -FilePath 'powershell.exe' -ArgumentList 'Restart-Service -Name Audiosrv' -Verb RunAs
+# Start-Process -FilePath 'powershell.exe' -ArgumentList 'Restart-Service -Name Audiosrv' -Verb RunAs
+Restart-Service -Name Audiosrv -Force
 
-# # Check then Launch GoXLR App
-# if(!(Get-Process -Name "GoXLR App")){
-#   Start-Process -FilePath "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\GOXLR App\GOXLR App.lnk"
-#   if(Get-Process -Name "GoXLR App"){
-#   Write-Output "GoXLR App Started!"}
-# }
-# elseif(Get-Process -Name "GoXLR App"){
-#   Write-Output "GoXLR App already running!"}
-# else{
-#   Write-Error "GoXLR App Failed to Start!"
-# }
+# Check then Launch GoXLR App
+
+Write-Output "Calling GoXLR restart"
+# & $goXLR
+& $scriptDirectory\$goXLR
+# Start-Process -FilePath powershell.exe -ArgumentList $goXLR -WorkingDirectory $scriptDirectory -Verb RunAs
+Start-Sleep -s 1
+
+Write-Output "Determining Audio Repeater status..."
+if((Get-Process -name "audiorepeater*").count -gt 1){
+  Write-Output "Appears to be streaming restarting stream repeaters!"
+  # Start-Process -FilePath powershell.exe -ArgumentList $streamAudio -WorkingDirectory $scriptDirectory -Verb RunAs
+  # & $streamAudio
+  & $scriptDirectory\$streamAudio
+  Start-Sleep -s 1
+}else{
+  Write-Output "Appears to not be streaming restarting basic repeaters!"
+  # Start-Process -FilePath powershell.exe -ArgumentList $basicAudio -WorkingDirectory $scriptDirectory -Verb RunAs
+  # & $basicAudio
+  & $scriptDirectory\$basicAudio
+  Start-Sleep -s 1
+}
 
 # Write-Warning "Unmute then Remute Chat on the GOXLR.... ok?"
 # Read-Host "Press key to continue"
 
 #Wait for a bit
-Start-Sleep -s 1
+Write-Output "End of Audio Service Restart."
+Start-Sleep -s 5
+

@@ -1,6 +1,5 @@
 #Requires -version 5.1
 #Requires -RunAsAdministrator
-Import-Module AudioDeviceCmdlets
 <#
 .SYNOPSIS
   Restart audio services and current virtual cables, and more?
@@ -53,3 +52,4 @@ Start-Sleep -m 250
 
 # Launch Audio Repeater
 Start-Process -FilePath $AudioRepeater -ArgumentList $configAudioL1ToGoXLRMusic -WindowStyle Hidden -Verb runAs
+Write-Output "End of Basic Audio restart."
