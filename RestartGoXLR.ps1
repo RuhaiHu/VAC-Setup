@@ -24,7 +24,8 @@
 
 # Variables
 $processesToRestart = "GoXLR App", "GoXLRAudio*"
-$GoXLRAPP = "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\GOXLR App\GOXLR App.lnk"
+# $GoXLRAPP = "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\GOXLR App\GOXLR App.lnk"
+# $GoXLRAPP = "/c ""C:\ProgramData\Microsoft\Windows\Start Menu\Programs\GOXLR App\GOXLR App.lnk"" && exit"
 # $GoXLRAPP = "C:\Program Files (x86)\TC-Helicon\GOXLR\GoXLR App.exe"
 # $GoXLRAPPWorkDir = "C:\Program Files (x86)\TC-Helicon\GOXLR\"
 $GoXLRAudioCplApp = "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\TC-Helicon\USB Audio Driver for GoXLR\GoXLR Control Panel.lnk"
@@ -37,8 +38,11 @@ Get-Process -Name $processesToRestart | Stop-Process -Force
 Write-Output "Restarting GoXLR Apps"
 Start-Process -FilePath $GoXLRAudioCplApp -WindowStyle Hidden
 Start-Sleep -s 2
-# Start-Process -FilePath $GoXLRAPP -WindowStyle Minimized 
+
 # Don't make a difference still tied to the powershell instance. app closes when shell closes
+# Does the same with cmd prompt runs it i get a console back and can run commands but as soon as that console closes the GoXLR App closes
+# Start-Process cmd -ArgumentList $goXLRAPP
+# Start-Process -FilePath $GoXLRAPP -WindowStyle Minimized 
 # .$GoXLRAPP
 # & $GoXLRAPP
 # Start-Process -FilePath $GoXLRAPP -WorkingDirectory $GoXLRAPPWorkDir -WindowStyle Minimized 
