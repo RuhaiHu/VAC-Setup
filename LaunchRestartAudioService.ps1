@@ -10,7 +10,7 @@
   <Outputs if any, otherwise state None - example: Log file stored in C:\Windows\Temp\<name>.log>
 .NOTES
   Version:        1.0
-  Author:         Michael Weber
+  Author:         Ruhai Hu
   Creation Date:  2020.01.11
   Purpose/Change: Initial script development
   

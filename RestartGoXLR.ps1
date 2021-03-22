@@ -10,10 +10,10 @@
 .OUTPUTS
   <Outputs if any, otherwise state None - example: Log file stored in C:\Windows\Temp\<name>.log>
 .NOTES
-  Version:        1.0
-  Author:         Michael Weber
+  Version:        2.0
+  Author:         Ruhai Hu
   Creation Date:  2021.03.19
-  Last Modified Date: 2021.03.20
+  Last Modified Date: 2021.03.21
   Purpose/Change: Initial script development
   
 .EXAMPLE
@@ -24,11 +24,14 @@
 
 # Variables
 $processesToRestart = "GoXLR App", "GoXLRAudio*"
-# $GoXLRAPP = "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\GOXLR App\GOXLR App.lnk"
-# $GoXLRAPP = "/c ""C:\ProgramData\Microsoft\Windows\Start Menu\Programs\GOXLR App\GOXLR App.lnk"" && exit"
+
+$GoXLRAPP = "/c start """" ""C:\ProgramData\Microsoft\Windows\Start Menu\Programs\GOXLR App\GOXLR App.lnk"" && exit"
+$GoXLRAudioCplApp = "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\TC-Helicon\USB Audio Driver for GoXLR\GoXLR Control Panel.lnk"
+
+# Variable attempts to launch GoXLRApp 
 # $GoXLRAPP = "C:\Program Files (x86)\TC-Helicon\GOXLR\GoXLR App.exe"
 # $GoXLRAPPWorkDir = "C:\Program Files (x86)\TC-Helicon\GOXLR\"
-$GoXLRAudioCplApp = "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\TC-Helicon\USB Audio Driver for GoXLR\GoXLR Control Panel.lnk"
+# $GoXLRAPP = "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\GOXLR App\GOXLR App.lnk"
 
 # kill the goxlr processes
 Write-Output "Force Stopping GoXLR Apps"
@@ -38,11 +41,16 @@ Get-Process -Name $processesToRestart | Stop-Process -Force
 Write-Output "Restarting GoXLR Apps"
 Start-Process -FilePath $GoXLRAudioCplApp -WindowStyle Hidden
 Start-Sleep -s 2
+Start-Process -FilePath cmd.exe -ArgumentList $goXLRAPP
 
-# Don't make a difference still tied to the powershell instance. app closes when shell closes
-# Does the same with cmd prompt runs it i get a console back and can run commands but as soon as that console closes the GoXLR App closes
-# Start-Process cmd -ArgumentList $goXLRAPP
+# The below comkmands fail to start GoXLRAPP as a standalone process
+# The App if launched closes with the powershell or command prompt
+# This is not good as it will keep other scripts and this one open
+# Now if you close that left open prompt it closes the app.
+# Solution found https://www.reddit.com/r/PowerShell/comments/m91ipj/program_launched_with_startprocess_closing_when/ Thanks to NeitherSound_
+# Start-Process -FilePath cmd.exe -ArgumentList $goXLRAPP
 # Start-Process -FilePath $GoXLRAPP -WindowStyle Minimized 
+# Start-Process -FilePath $GoXLRAPP -WindowStyle Minimized -passthru
 # .$GoXLRAPP
 # & $GoXLRAPP
 # Start-Process -FilePath $GoXLRAPP -WorkingDirectory $GoXLRAPPWorkDir -WindowStyle Minimized 

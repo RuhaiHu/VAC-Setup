@@ -11,7 +11,7 @@
   <Outputs if any, otherwise state None - example: Log file stored in C:\Windows\Temp\<name>.log>
 .NOTES
   Version:        2s.0
-  Author:         Michael Weber
+  Author:         Ruhai Hu
   Creation Date:  2020.01.11
   Last Modified Date: 2021.03.19
   Purpose/Change: Initial script development

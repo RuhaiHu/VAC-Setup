@@ -6,7 +6,7 @@
   Change default audio device to Speakers (ASUS Xonar DX Audio Device)
 .NOTES
   Version:        1.0
-  Author:         Michael Weber
+  Author:         Ruhai Hu
   Creation Date:  03.10.2018
   Purpose/Change: Initial script development
   
