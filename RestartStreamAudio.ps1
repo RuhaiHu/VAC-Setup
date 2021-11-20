@@ -10,10 +10,10 @@
 .OUTPUTS
   <Outputs if any, otherwise state None - example: Log file stored in C:\Windows\Temp\<name>.log>
 .NOTES
-  Version:        2s.0
+  Version:        2.0
   Author:         Ruhai Hu
   Creation Date:  2020.01.11
-  Last Modified Date: 2021.03.19
+  Last Modified Date: 2021.11.20
   Purpose/Change: Initial script development
   
 .EXAMPLE
@@ -28,6 +28,7 @@
 $ProgFiles = $ENV:ProgramFiles
 $AudioRepeater = $ProgFiles + "\Virtual Audio Cable\audiorepeater.exe"
 $AudioRepeaterKS = $ProgFiles + "\Virtual Audio Cable\audiorepeater_ks.exe"
+
 $configAudioL1ToGoXLRMusic = "
   /WindowName: ""L1 to GoXLR Music"" 
   /Input:""Line 1 (Virtual Audio Cable)"" 
@@ -86,9 +87,9 @@ Start-Sleep -m 250
 # Launch Audio Repeater for Line 1 to GoXLR Music
 Start-Process -FilePath $AudioRepeater -ArgumentList $configAudioL1ToGoXLRMusic -WindowStyle Hidden -Verb runAs
 
-# Launch Audio Repeater KS for GoXLR Mic to Console USB Audio feed for voice chat
+# Launch Audio Repeater KS for GoXLR Mic to Console USB Audio feed for voice chat console
 Start-Process -FilePath $AudioRepeaterKS -ArgumentList $configAudioGoXLRChatMicToConsoleUSB -WindowStyle Hidden -Verb runAs
 
-# Launch Audio Repeater KS for GoXLR Mic to Console USB Audio feed for voice chat
+# Launch Audio Repeater KS for GoXLR Mic to L2 Audio feed for voice chat
 Start-Process -FilePath $AudioRepeaterKS -ArgumentList $configAudioGoXLRChatMicToL2 -WindowStyle Hidden -Verb runAs
 Write-Output "End of Stream Audio restart."
